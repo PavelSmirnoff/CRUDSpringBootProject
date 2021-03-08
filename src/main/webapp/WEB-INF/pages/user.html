@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <title>CRUD Spring project - Страницв пользователя</title>
+</head>
+<body>
+<a th:href="@{/}"><<< back to main page</a> <br/>
+<a th:href="@{/logout}">Logout</a>
+
+<h2>Это твоя страница, <span sec:authentication="name"></span></h2>
+
+<div>
+    <th:block th:each="msg : ${messages}">
+        <h1 th:text="${msg}"></h1>
+    </th:block>
+</div>
+
+</body>
+</html>
