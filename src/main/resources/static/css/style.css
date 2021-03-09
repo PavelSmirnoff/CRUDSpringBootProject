@@ -1,0 +1,12 @@
+nav {
+    color: white;
+}
+nav a {
+    color: lightskyblue;
+    font-weight: bold;
+}
+nav a:hover {
+    color: deepskyblue;
+    font-weight: bold;
+    font-size: 110%;
+}

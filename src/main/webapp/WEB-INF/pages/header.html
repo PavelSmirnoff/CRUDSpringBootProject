@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="ru">
+
+<body>
+<div th:fragment="content">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+            <div class="mr-auto">
+                <div sec:authorize="isAnonymous()">
+                Добро пожаловать, <b>странник</b>.
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    О, рады приветствовать тебя - <b><span sec:authentication="name"></span></b>
+                </div>
+            </div>
+        <div>
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}">Войти</a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/logout}">Выйти</a>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
