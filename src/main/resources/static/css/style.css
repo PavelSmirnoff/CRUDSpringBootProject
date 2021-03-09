@@ -1,12 +1,44 @@
 nav {
     color: white;
 }
+
 nav a {
     color: lightskyblue;
     font-weight: bold;
 }
+
 nav a:hover {
     color: deepskyblue;
     font-weight: bold;
     font-size: 110%;
 }
+
+.nav-item {
+    padding-right: 10px;
+}
+
+main{
+    padding: 4rem 2rem;
+}
+table {
+    border-collapse: collapse;
+}
+
+th {
+    border: 1px solid black;
+    background-color: lightsteelblue;
+    padding: 2px 20px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td {
+    border: 1px solid black;
+}
+
+label {
+    padding: 2px 5px;
+}
+

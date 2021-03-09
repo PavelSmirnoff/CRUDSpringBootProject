@@ -1,77 +1,55 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <html lang="ru">
 <head>
     <meta charset="UTF-8"/>
     <title>CRUD Spring project - Страница управления пользователями</title>
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        th {
-            border: 1px solid black;
-            background-color: lightsteelblue;
-            padding: 2px 20px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        td {
-            border: 1px solid black;
-        }
-
-        label {
-            padding: 2px 5px;
-        }
-    </style>
 </head>
 <body>
-<a th:href="@{/}"><<< back to main page</a> <br/>
-<a th:href="@{/user}">personal page</a> <br/>
-<a th:href="@{/logout}">Logout</a>
-<h2>Список пользователей</h2>
-<div th:unless="${#lists.isEmpty(userList)}">
-    <table style="">
-        <tr>
-            <th>Id</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Пароль</th>
-            <th>Роли</th>
-            <th>Дата рождения</th>
-            <th>Телефон</th>
-            <th>Edit</th>
-            <th>Delete</th>
-            
-        </tr>
-        <th:block th:each="user : ${userList}">
+<div th:replace="header :: content"></div>
+
+<main role="main">
+
+    <h2>Список пользователей</h2>
+    <div th:unless="${#lists.isEmpty(userList)}">
+        <table style="">
             <tr>
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.password}"></td>
-                <td >
-                    <th:block th:each="role : ${user.roles}">
-                        <span th:text="${role.name}"></span><br/>
-                    </th:block>
-                </td>
-                <td th:text="${user.birthDate}"></td>
-                <td th:text="${user.telNumber}"></td>
-                <td><a th:href="@{'/admin/edit/'+${user.id}}"> Edit </a></td>
-                <td><a th:href="@{'/delete/'+${user.id}}"> Delete </a></td>
+                <th>Id</th>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Пароль</th>
+                <th>Роли</th>
+                <th>Дата рождения</th>
+                <th>Телефон</th>
+                <th>Edit</th>
+                <th>Delete</th>
+
             </tr>
-        </th:block>
-    </table>
-</div>
+            <th:block th:each="user : ${userList}">
+                <tr>
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.password}"></td>
+                    <td>
+                        <th:block th:each="role : ${user.roles}">
+                            <span th:text="${role.name}"></span><br/>
+                        </th:block>
+                    </td>
+                    <td th:text="${user.birthDate}"></td>
+                    <td th:text="${user.telNumber}"></td>
+                    <td><a th:href="@{'/admin/edit/'+${user.id}}"> Edit </a></td>
+                    <td><a th:href="@{'/delete/'+${user.id}}"> Delete </a></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
 
-<h2 th:text="${user.id != null} ? 'Редактировать' : 'Добавить'" > пользователя</h2>
+    <h2 th:text="${user.id != null} ? 'Редактировать' : 'Добавить'"> пользователя</h2>
 
-<form action="#" th:action="@{/admin/adduser}" th:object="${user}" method="post">
-    <table>
+    <form action="#" th:action="@{/admin/adduser}" th:object="${user}" method="post">
+        <table>
             <tr th:if="${user.id != null}">
                 <td>
                     <label>Id</label>
@@ -80,107 +58,110 @@
                     <input id="id" name="id" th:field="*{id}" readonly/>
                 </td>
             </tr>
-        <tr>
-            <td>
-                <label>Фамилия</label>
-            </td>
-            <td>
-                <input id="firstName" name="firstName" th:field="*{firstName}" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Имя</label>
-            </td>
-            <td>
-                <input id="lastName" name="lastName" th:field="*{lastName}" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Пароль</label>
-            </td>
-            <td>
-                <input id="password" name="password" th:field="*{password}" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Роли</label>
-            </td>
-            <td>
-                <div class="checkbox" th:each="role: ${roleList}">
-                    <label th:text="${role.name}"></label>
-                    <input id="rL" name="rL" type="checkbox" th:value="${role.id}"
-                           th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Дата рождения</label>
-            </td>
-            <td>
-                <input id="birthDate" name="birthDate" th:field="*{birthDate}" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Телефон</label>
-            </td>
-            <td>
-                <input id="telNumber" name="telNumber" th:field="*{telNumber}" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">
-                <input type="submit" value="Добавить пользователя" />
-            </td>
-        </tr>
-    </table>
-</form>
-
-<h2>Список доступных ролей</h2>
-<div th:unless="${#lists.isEmpty(roleList)}">
-    <table style="">
-        <tr>
-            <th>Id</th>
-            <th>Роль</th>
-            <th>Delete</th>
-        </tr>
-        <th:block th:each="role : ${roleList}">
             <tr>
-                <td th:text="${role.id}"></td>
-                <td th:text="${role.name}"></td>
-                <td><a th:href="@{'/admin/deleterole/'+${role.id}}"> Delete </a></td>
+                <td>
+                    <label>Фамилия</label>
+                </td>
+                <td>
+                    <input id="firstName" name="firstName" th:field="*{firstName}"/>
+                </td>
             </tr>
-        </th:block>
-    </table>
-</div>
-<form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post">
-    <table>
-        <tr th:if="${role.id != null}">
-            <td>
-                <label>Id</label>
-            </td>
-            <td>
-                <input id="id" name="id" th:field="*{id}" readonly/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Роль</label>
-            </td>
-            <td>
-                <input id="name" name="name" th:field="*{name}" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style="text-align: center;">
-                <input type="submit" value="Добавить роль" />
-            </td>
-        </tr>
-    </table>
-</form>
+            <tr>
+                <td>
+                    <label>Имя</label>
+                </td>
+                <td>
+                    <input id="lastName" name="lastName" th:field="*{lastName}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Пароль</label>
+                </td>
+                <td>
+                    <input id="password" name="password" th:field="*{password}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Роли</label>
+                </td>
+                <td>
+                    <div class="checkbox" th:each="role: ${roleList}">
+                        <label th:text="${role.name}"></label>
+                        <input id="rL" name="rL" type="checkbox" th:value="${role.id}"
+                               th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Дата рождения</label>
+                </td>
+                <td>
+                    <input id="birthDate" name="birthDate" th:field="*{birthDate}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Телефон</label>
+                </td>
+                <td>
+                    <input id="telNumber" name="telNumber" th:field="*{telNumber}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input type="submit" value="Добавить пользователя"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <h2>Список доступных ролей</h2>
+    <div th:unless="${#lists.isEmpty(roleList)}">
+        <table style="">
+            <tr>
+                <th>Id</th>
+                <th>Роль</th>
+                <th>Delete</th>
+            </tr>
+            <th:block th:each="role : ${roleList}">
+                <tr>
+                    <td th:text="${role.id}"></td>
+                    <td th:text="${role.name}"></td>
+                    <td><a th:href="@{'/admin/deleterole/'+${role.id}}"> Delete </a></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
+    <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post">
+        <table>
+            <tr th:if="${role.id != null}">
+                <td>
+                    <label>Id</label>
+                </td>
+                <td>
+                    <input id="id" name="id" th:field="*{id}" readonly/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Роль</label>
+                </td>
+                <td>
+                    <input id="name" name="name" th:field="*{name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: center;">
+                    <input type="submit" value="Добавить роль"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</main>
+<div th:replace="footer :: content"></div>
 </body>
 </html>

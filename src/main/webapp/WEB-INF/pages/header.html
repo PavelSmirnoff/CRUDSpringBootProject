@@ -17,21 +17,39 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-            <div class="mr-auto">
-                <div sec:authorize="isAnonymous()">
-                Добро пожаловать, <b>странник</b>.
-                </div>
-                <div sec:authorize="isAuthenticated()">
-                    О, рады приветствовать тебя - <b><span sec:authentication="name"></span></b>
-                </div>
-            </div>
-        <div>
+        <div class="navbar-brand">
             <div sec:authorize="isAnonymous()">
-                <a th:href="@{/login}">Войти</a>
+                Добро пожаловать, <b>странник</b>.
             </div>
             <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/logout}">Выйти</a>
+                Рады приветствовать тебя, о великий <b><span sec:authentication="name"></span></b>,
+                ты имеешь права <b>
+                <th:block th:each="r, iter:${#authentication.getAuthorities()}">
+                    <span th:text="${r.getAuthority().replaceFirst('ROLE_', '')}"></span>
+                    <span th:if="${!iter.last}">, </span>
+                </th:block>
+            </b>
             </div>
+        </div>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a sec:authorize="isAuthenticated()" th:href="@{/}" class="btn btn-outline-warning"
+                   role="button">Main page</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin}" class="btn btn-outline-warning"
+                   role="button">Admin page</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasAnyRole('USER','ADMIN')" th:href="@{/user}" class="btn btn-outline-warning"
+                   role="button">User page</a>
+            </li>
+        </ul>
+        <div>
+            <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-outline-warning"
+               role="button">Войти</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-outline-warning"
+               role="button">Выйти</a>
         </div>
     </nav>
 </div>
