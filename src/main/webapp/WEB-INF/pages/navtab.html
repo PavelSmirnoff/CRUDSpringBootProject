@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="ru">
+<body>
+<div th:fragment="content">
+    <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+        <ul class="nav nav-pills flex-column">
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                <a class="nav-link" href="/admin">Admin page </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user">User page </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</body>
+</html>
