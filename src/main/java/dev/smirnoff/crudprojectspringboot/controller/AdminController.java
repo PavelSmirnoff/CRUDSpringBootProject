@@ -40,6 +40,9 @@ public class AdminController {
     @PostMapping("/admin/adduser")
     public String addUser(@ModelAttribute("user") User user, @RequestParam(value = "rL", required = false) String[] roles) {
         Set<Role> roleList = new LinkedHashSet<>();
+
+        // Надо написать обработку пустого списка ролей, иначе будет исключение
+
         for(int i=0; i < roles.length ; i++){
             roleList.add(this.roleService.getRoleById(Long.parseLong(roles[i])));
         }
