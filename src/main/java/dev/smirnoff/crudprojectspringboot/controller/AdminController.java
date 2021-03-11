@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author pavelsmirnov
@@ -37,7 +38,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/adduser")
-    public String addUser(@ModelAttribute("user") User user, @RequestParam("rL") String[] roles) {
+    public String addUser(@ModelAttribute("user") User user, @RequestParam(value = "rL", required = false) String[] roles) {
         Set<Role> roleList = new LinkedHashSet<>();
         for(int i=0; i < roles.length ; i++){
             roleList.add(this.roleService.getRoleById(Long.parseLong(roles[i])));
@@ -65,6 +66,7 @@ public class AdminController {
         User user = this.userService.getUserById(id);
         Set<Long> integerList = new LinkedHashSet<>();
         user.getRoles().forEach(x -> integerList.add(x.getId()));
+        //integerList = user.getRoles().stream().mapToLong(x -> x.getId()).collect(Collectors.toList());
         model.addAttribute("user", user);
         model.addAttribute("userRole", integerList);
         model.addAttribute("userList", this.userService.getUsers());
