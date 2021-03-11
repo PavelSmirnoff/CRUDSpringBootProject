@@ -23,7 +23,7 @@
                    aria-controls="nav-contact" aria-selected="false">Управление ролями</a>
             </div>
         </nav>
-        <div class="tab-content text-center" id="nav-tabContent">
+        <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <h2>Список пользователей</h2>
                 <div th:unless="${#lists.isEmpty(userList)}">
@@ -66,79 +66,64 @@
                 </div>
 
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="tab-pane fade col-sm-8 mx-auto" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <h2 th:text="${user.id != null} ? 'Редактировать' : 'Добавить'"> пользователя</h2>
 
                 <form action="#" th:action="@{/admin/adduser}" th:object="${user}" method="post">
-                    <table>
-                        <tr th:if="${user.id != null}">
-                            <td>
-                                <label>Id</label>
-                            </td>
-                            <td>
-                                <input id="id" name="id" th:field="*{id}" readonly/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Фамилия</label>
-                            </td>
-                            <td>
-                                <input id="firstName" name="firstName" th:field="*{firstName}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Имя</label>
-                            </td>
-                            <td>
-                                <input id="lastName" name="lastName" th:field="*{lastName}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Пароль</label>
-                            </td>
-                            <td>
-                                <input id="password" name="password" th:field="*{password}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Роли</label>
-                            </td>
-                            <td>
-                                <div class="checkbox" th:each="role: ${roleList}">
-                                    <label th:text="${role.name}"></label>
-                                    <input id="rL" name="rL" type="checkbox" th:value="${role.id}"
-                                           th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Дата рождения</label>
-                            </td>
-                            <td>
-                                <input id="birthDate" name="birthDate" th:field="*{birthDate}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Телефон</label>
-                            </td>
-                            <td>
-                                <input id="telNumber" name="telNumber" th:field="*{telNumber}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: center;">
-                                <input type="submit" value="Добавить пользователя"/>
-                            </td>
-                        </tr>
-                    </table>
+                    <div  th:if="${user.id != null}" class="form-group row">
+                        <label for="id" class="col-sm-3 col-form-label">id</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="id" placeholder="id" th:field="*{id}" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="firstName" class="col-sm-3 col-form-label">Фамилия</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="firstName" placeholder="Фамилия" th:field="*{firstName}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lastName" class="col-sm-3 col-form-label">Имя</label>
+                        <div class="col-sm-6 ">
+                            <input type="text" class="form-control" id="lastName" placeholder="Имя" th:field="*{lastName}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-3 col-form-label">Пароль</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="password" placeholder="Пароль" th:field="*{password}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="birthDate" class="col-sm-3 col-form-label">Дата рождения</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="birthDate" placeholder="Дата рождения" th:field="*{birthDate}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="telNumber" class="col-sm-3 col-form-label">Телефон</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="telNumber" placeholder="Телефон" th:field="*{telNumber}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">Роли</div>
+                        <div class="col-sm-6">
+                            <div class="form-check" th:each="role: ${roleList}">
+                                <input  class="form-check-input" id="rL" name="rL" type="checkbox" th:value="${role.id}"
+                                       th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>
+                                <label class="form-check-label" th:text="${role.name}"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+                        </div>
+                    </div>
                 </form>
             </div>
+
             <div class="tab-pane fade col-sm-8 mx-auto" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" >
                 <h2>Список доступных ролей</h2>
                 <div th:unless="${#lists.isEmpty(roleList)}">
@@ -169,7 +154,6 @@
                             <input type="text" class="form-control" id="name" placeholder="Название роли" th:field="*{name}" />
                         </div>
                         <button type="submit" class="btn btn-primary">Добавить роль</button>
-
                 </form>
             </div>
         </div>
