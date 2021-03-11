@@ -1,25 +1,6 @@
 nav {
     color: white;
 }
-
-/*nav a {*/
-/*    color: lightskyblue;*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*nav a:hover {*/
-/*    color: deepskyblue;*/
-/*    font-weight: bold;*/
-/*    font-size: 110%;*/
-/*}*/
-
-.nav-item {
-    padding-right: 10px;
-}
-
-h3{
-    padding-top: 20px;
-}
 /*
  * Sidebar
  */

@@ -27,7 +27,7 @@
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <h2>Список пользователей</h2>
                 <div th:unless="${#lists.isEmpty(userList)}">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>Id</th>
@@ -55,10 +55,104 @@
                                 </td>
                                 <td th:text="${user.birthDate}"></td>
                                 <td th:text="${user.telNumber}"></td>
-                                <td><a th:href="@{'/admin/edit/'+${user.id}}" class="btn btn-info"
-                                       role="button"> Edit </a></td>
-                                <td><a th:href="@{'/delete/'+${user.id}}" class="btn btn-danger"
-                                       role="button"> Delete </a></td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-info" data-toggle="modal"
+                                            th:data-target="${'#edit_' + user.id}">
+                                        Edit
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="${'edit_' + user.id}" tabindex="-1" role="dialog"
+                                         aria-labelledby="editModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLongTitle">Редактирование
+                                                        пользователя</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Отмена
+                                                    </button>
+                                                    <a th:href="@{'/admin/edit/'+${user.id}}" class="btn btn-info"
+                                                       role="button"> Сохранить </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                            th:data-target="${'#delete_' + user.id}">
+                                        Delete
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" th:id="${'delete_' + user.id}" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLongTitle">Удаление
+                                                        пользователя</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <td th:text="${user.id}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Фамилия</th>
+                                                            <td th:text="${user.firstName}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Имя</th>
+                                                            <td th:text="${user.lastName}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Дата рождения</th>
+                                                            <td th:text="${user.birthDate}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Телефон</th>
+                                                            <td th:text="${user.telNumber}"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Роли доступа</th>
+                                                            <td>
+                                                                <th:block th:each="role : ${user.roles}">
+                                                                    <span th:text="${role.name}"></span><br/>
+                                                                </th:block>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Отмена
+                                                    </button>
+                                                    <a th:href="@{'/delete/'+${user.id}}" class="btn btn-danger"
+                                                       role="button"> Delete </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </th:block>
                         </tbody>
@@ -66,51 +160,57 @@
                 </div>
 
             </div>
-            <div class="tab-pane fade col-sm-8 mx-auto" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <h2 th:text="${user.id != null} ? 'Редактировать' : 'Добавить'"> пользователя</h2>
+            <div class="tab-pane fade col-sm-8 mx-auto" id="nav-profile" role="tabpanel"
+                 aria-labelledby="nav-profile-tab">
+                <h2> Новый пользователь</h2>
 
                 <form action="#" th:action="@{/admin/adduser}" th:object="${user}" method="post">
-                    <div  th:if="${user.id != null}" class="form-group row">
-                        <label for="id" class="col-sm-3 col-form-label">id</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="id" placeholder="id" th:field="*{id}" readonly/>
-                        </div>
-                    </div>
+<!--                    <div th:if="${user.id != null}" class="form-group row">-->
+<!--                        <label for="id" class="col-sm-3 col-form-label">id</label>-->
+<!--                        <div class="col-sm-6">-->
+<!--                            <input type="text" class="form-control" id="id" placeholder="id" th:field="*{id}" readonly/>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="form-group row">
                         <label for="firstName" class="col-sm-3 col-form-label">Фамилия</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="firstName" placeholder="Фамилия" th:field="*{firstName}"/>
+                            <input type="text" class="form-control" id="firstName" placeholder="Фамилия"
+                                   th:field="*{firstName}"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="lastName" class="col-sm-3 col-form-label">Имя</label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control" id="lastName" placeholder="Имя" th:field="*{lastName}"/>
+                            <input type="text" class="form-control" id="lastName" placeholder="Имя"
+                                   th:field="*{lastName}"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="password" class="col-sm-3 col-form-label">Пароль</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="password" placeholder="Пароль" th:field="*{password}"/>
+                            <input type="text" class="form-control" id="password" placeholder="Пароль"
+                                   th:field="*{password}"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="birthDate" class="col-sm-3 col-form-label">Дата рождения</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="birthDate" placeholder="Дата рождения" th:field="*{birthDate}"/>
+                            <input type="text" class="form-control" id="birthDate" placeholder="Дата рождения"
+                                   th:field="*{birthDate}"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="telNumber" class="col-sm-3 col-form-label">Телефон</label>
                         <div class="col-sm-6">
-                            <input type="number" class="form-control" id="telNumber" placeholder="Телефон" th:field="*{telNumber}"/>
+                            <input type="number" class="form-control" id="telNumber" placeholder="Телефон"
+                                   th:field="*{telNumber}"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-3">Роли</div>
                         <div class="col-sm-6">
                             <div class="form-check" th:each="role: ${roleList}">
-                                <input  class="form-check-input" id="rL" name="rL" type="checkbox" th:value="${role.id}"
+                                <input class="form-check-input" id="rL" name="rL" type="checkbox" th:value="${role.id}"
                                        th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>
                                 <label class="form-check-label" th:text="${role.name}"></label>
                             </div>
@@ -124,7 +224,8 @@
                 </form>
             </div>
 
-            <div class="tab-pane fade col-sm-8 mx-auto" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" >
+            <div class="tab-pane fade col-sm-8 mx-auto" id="nav-contact" role="tabpanel"
+                 aria-labelledby="nav-contact-tab">
                 <h2>Список доступных ролей</h2>
                 <div th:unless="${#lists.isEmpty(roleList)}">
                     <table class="table">
@@ -149,11 +250,12 @@
 
                 <h3>Добавление ролей</h3>
                 <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post" class="form-inline">
-                        <label for="name" class="col-sm-2 col-form-label">Роль</label>
-                        <div class="col-auto">
-                            <input type="text" class="form-control" id="name" placeholder="Название роли" th:field="*{name}" />
-                        </div>
-                        <button type="submit" class="btn btn-primary">Добавить роль</button>
+                    <label for="name" class="col-sm-2 col-form-label">Роль</label>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" id="name" placeholder="Название роли"
+                               th:field="*{name}"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Добавить роль</button>
                 </form>
             </div>
         </div>
