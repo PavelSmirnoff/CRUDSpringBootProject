@@ -23,7 +23,7 @@
                    aria-controls="nav-contact" aria-selected="false">Управление ролями</a>
             </div>
         </nav>
-        <div class="tab-content" id="nav-tabContent">
+        <div class="tab-content text-center" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <h2>Список пользователей</h2>
                 <div th:unless="${#lists.isEmpty(userList)}">
@@ -139,7 +139,7 @@
                     </table>
                 </form>
             </div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            <div class="tab-pane fade col-sm-8 mx-auto" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" >
                 <h2>Список доступных ролей</h2>
                 <div th:unless="${#lists.isEmpty(roleList)}">
                     <table class="table">
@@ -163,30 +163,13 @@
                 </div>
 
                 <h3>Добавление ролей</h3>
-                <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post">
-                    <table>
-                        <tr th:if="${role.id != null}">
-                            <td>
-                                <label>Id</label>
-                            </td>
-                            <td>
-                                <input id="id" name="id" th:field="*{id}" readonly/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>Роль</label>
-                            </td>
-                            <td>
-                                <input id="name" name="name" th:field="*{name}"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="text-align: center;">
-                                <input type="submit" value="Добавить роль"/>
-                            </td>
-                        </tr>
-                    </table>
+                <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post" class="form-inline">
+                        <label for="name" class="col-sm-2 col-form-label">Роль</label>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" id="name" placeholder="Название роли" th:field="*{name}" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить роль</button>
+
                 </form>
             </div>
         </div>
