@@ -310,40 +310,70 @@
             <div class="tab-pane fade col-sm-8 mx-auto" id="nav-contact" role="tabpanel"
                  aria-labelledby="nav-contact-tab">
                 <h2>Список доступных ролей</h2>
-                <div th:unless="${#lists.isEmpty(roleList)}">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Роль</th>
-                            <th>Delete</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <th:block th:each="role : ${roleList}">
-                            <tr>
-                                <td th:text="${role.id}"></td>
-                                <td th:text="${role.name}"></td>
-                                <td><a th:href="@{'/admin/deleterole/'+${role.id}}"> Delete </a></td>
-                            </tr>
-                        </th:block>
-                        </tbody>
-                    </table>
-                </div>
+                <button onclick="getAllRole()">getAllRole</button>
+                <table id="tblRole"  class="table">
+                    <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Роль</th>
+                        <th>Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+
+<!--                <div th:unless="${#lists.isEmpty(roleList)}">-->
+<!--                    <table class="table">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>Id</th>-->
+<!--                            <th>Роль</th>-->
+<!--                            <th>Delete</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <th:block th:each="role : ${roleList}">-->
+<!--                            <tr>-->
+<!--                                <td th:text="${role.id}"></td>-->
+<!--                                <td th:text="${role.name}"></td>-->
+<!--                                <td><a th:href="@{'/admin/deleterole/'+${role.id}}"> Delete </a></td>-->
+<!--                            </tr>-->
+<!--                        </th:block>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
 
                 <h3>Добавление ролей</h3>
-                <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post" class="form-inline">
-                    <label for="name" class="col-sm-2 col-form-label">Роль</label>
+<!--                <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post" class="form-inline">-->
+<!--                    <label for="name" class="col-sm-2 col-form-label">Роль</label>-->
+<!--                    <div class="col-auto">-->
+<!--                        <input type="text" class="form-control" id="roleName" placeholder="Название роли"-->
+<!--                               th:field="*{name}"/>-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary">Добавить роль</button>-->
+<!--                </form>-->
+                <form class="form-inline">
+                    <label for="roleName" class="col-sm-2 col-form-label">Роль</label>
                     <div class="col-auto">
-                        <input type="text" class="form-control" id="name" placeholder="Название роли"
-                               th:field="*{name}"/>
+                        <input type="text" class="form-control" id="roleName" placeholder="Название роли"/>
                     </div>
-                    <button type="submit" class="btn btn-primary">Добавить роль</button>
+                    <input type="button" value="Добавить роль" id="btnAddRole" class="btn btn-success">
                 </form>
+<!--                <table class="table">-->
+<!--                    &lt;!&ndash;                    <td><input type="text" id = "roleId" hidden></td>&ndash;&gt;-->
+<!--                    <tr>-->
+<!--                        <td>Роль</td>-->
+<!--                        <td><input type="text" id="roleName"></td>-->
+<!--                        <td><input type="button" value="Добавить роль" id="btnAddRole"></td>-->
+<!--                    </tr>-->
+<!--                </table>-->
             </div>
         </div>
     </main>
 </div>
 <div th:replace="footer :: content"></div>
+<script type="text/javascript" src="js/ajax.js"></script>
 </body>
 </html>

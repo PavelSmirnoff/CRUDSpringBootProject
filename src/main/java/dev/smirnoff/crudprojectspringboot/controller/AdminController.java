@@ -53,14 +53,14 @@ public class AdminController {
             } else {
                 this.userService.updateUser(user);
             }
-        return "redirect:/admin";
+        return "/admin";
     }
 
     //@RequestMapping("/delete/{id}")
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         this.userService.deleteUser(id);
-        return "redirect:/admin";
+        return "/admin";
     }
 
     //@RequestMapping("/edit/{id}")
@@ -81,12 +81,12 @@ public class AdminController {
     @PostMapping("/admin/addrole")
     public String addRole(@ModelAttribute("role") Role role) {
             this.roleService.createRole(role);
-        return "redirect:/admin";
+        return "/admin";
     }
 
     @GetMapping("/admin/deleterole/{id}")
     public String deleteRole(@PathVariable("id") long id) {
         this.roleService.deleteRole(id);
-        return "redirect:/admin";
+        return "/admin";
     }
 }
