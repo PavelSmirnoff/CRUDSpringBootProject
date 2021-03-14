@@ -26,7 +26,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <h2>Список пользователей</h2>
-                <table id="tblUser"  class="table table-striped">
+                <table id="tblUser" class="table table-striped">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -45,290 +45,334 @@
                     </tbody>
                 </table>
 
-<!--                <div th:unless="${#lists.isEmpty(userList)}">-->
-<!--                    <table class="table table-striped">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th>Id</th>-->
-<!--                            <th>Фамилия</th>-->
-<!--                            <th>Имя</th>-->
-<!--                            <th>Пароль</th>-->
-<!--                            <th>Роли</th>-->
-<!--                            <th>Дата рождения</th>-->
-<!--                            <th>Телефон</th>-->
-<!--                            <th colspan="2">Действие</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <th:block th:each="u : ${userList}">-->
-<!--                            <tr>-->
-<!--                                <td th:text="${u.id}"></td>-->
-<!--                                <td th:text="${u.firstName}"></td>-->
-<!--                                <td th:text="${u.lastName}"></td>-->
-<!--                                <td th:text="${u.password}"></td>-->
-<!--                                <td>-->
-<!--                                    <th:block th:each="role : ${u.roles}">-->
-<!--                                        <span th:text="${role.name}"></span><br/>-->
-<!--                                    </th:block>-->
-<!--                                </td>-->
-<!--                                <td th:text="${u.birthDate}"></td>-->
-<!--                                <td th:text="${u.telNumber}"></td>-->
-<!--                                <td>-->
-<!--                                    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
-<!--                                    <button type="button" class="btn btn-info" data-toggle="modal"-->
-<!--                                            th:data-target="${'#edit_' + u.id}">-->
-<!--                                        Edit-->
-<!--                                    </button>-->
+                <!--                <div th:unless="${#lists.isEmpty(userList)}">-->
+                <!--                    <table class="table table-striped">-->
+                <!--                        <thead>-->
+                <!--                        <tr>-->
+                <!--                            <th>Id</th>-->
+                <!--                            <th>Фамилия</th>-->
+                <!--                            <th>Имя</th>-->
+                <!--                            <th>Пароль</th>-->
+                <!--                            <th>Роли</th>-->
+                <!--                            <th>Дата рождения</th>-->
+                <!--                            <th>Телефон</th>-->
+                <!--                            <th colspan="2">Действие</th>-->
+                <!--                        </tr>-->
+                <!--                        </thead>-->
+                <!--                        <tbody>-->
+                <!--                        <th:block th:each="u : ${userList}">-->
+                <!--                            <tr>-->
+                <!--                                <td th:text="${u.id}"></td>-->
+                <!--                                <td th:text="${u.firstName}"></td>-->
+                <!--                                <td th:text="${u.lastName}"></td>-->
+                <!--                                <td th:text="${u.password}"></td>-->
+                <!--                                <td>-->
+                <!--                                    <th:block th:each="role : ${u.roles}">-->
+                <!--                                        <span th:text="${role.name}"></span><br/>-->
+                <!--                                    </th:block>-->
+                <!--                                </td>-->
+                <!--                                <td th:text="${u.birthDate}"></td>-->
+                <!--                                <td th:text="${u.telNumber}"></td>-->
+                <!--                                <td>-->
+                <!--                                    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                <!--                                    <button type="button" class="btn btn-info" data-toggle="modal"-->
+                <!--                                            th:data-target="${'#edit_' + u.id}">-->
+                <!--                                        Edit-->
+                <!--                                    </button>-->
 
-<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
-<!--                                    <div class="modal fade" th:id="${'edit_' + u.id}" tabindex="-1" role="dialog"-->
-<!--                                         aria-labelledby="editModalCenterTitle" aria-hidden="true">-->
-<!--                                        <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--                                            <div class="modal-content">-->
-<!--                                                <div class="modal-header">-->
-<!--                                                    <h5 class="modal-title" id="editModalLongTitle">Редактирование-->
-<!--                                                        пользователя</h5>-->
-<!--                                                    <button type="button" class="close" data-dismiss="modal"-->
-<!--                                                            aria-label="Close">-->
-<!--                                                        <span aria-hidden="true">&times;</span>-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                                <form action="#" th:action="@{/admin/adduser}" th:object="${user}"-->
-<!--                                                      method="post">-->
+                <!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+                <!--                                    <div class="modal fade" th:id="${'edit_' + u.id}" tabindex="-1" role="dialog"-->
+                <!--                                         aria-labelledby="editModalCenterTitle" aria-hidden="true">-->
+                <!--                                        <div class="modal-dialog modal-dialog-centered" role="document">-->
+                <!--                                            <div class="modal-content">-->
+                <!--                                                <div class="modal-header">-->
+                <!--                                                    <h5 class="modal-title" id="editModalLongTitle">Редактирование-->
+                <!--                                                        пользователя</h5>-->
+                <!--                                                    <button type="button" class="close" data-dismiss="modal"-->
+                <!--                                                            aria-label="Close">-->
+                <!--                                                        <span aria-hidden="true">&times;</span>-->
+                <!--                                                    </button>-->
+                <!--                                                </div>-->
+                <!--                                                <form action="#" th:action="@{/admin/adduser}" th:object="${user}"-->
+                <!--                                                      method="post">-->
 
-<!--                                                    <div class="modal-body">-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <label for="id" class="col-sm-3 col-form-label">id</label>-->
-<!--                                                            <div class="col-sm-6">-->
-<!--                                                                <input type="text" class="form-control"-->
-<!--                                                                       placeholder="id"-->
-<!--                                                                       id="id"-->
-<!--                                                                       name="id"-->
-<!--                                                                       th:value="${u.id}"-->
-<!--                                                                       readonly/>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <label for="firstName" class="col-sm-3 col-form-label">Фамилия</label>-->
-<!--                                                            <div class="col-sm-6">-->
-<!--                                                                <input type="text" class="form-control"-->
-<!--                                                                       placeholder="Фамилия"-->
-<!--                                                                       id="firstName"-->
-<!--                                                                       name="firstName"-->
-<!--                                                                       th:value="${u.firstName}"-->
-<!--                                                                />-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <label for="lastName"-->
-<!--                                                                   class="col-sm-3 col-form-label">Имя</label>-->
-<!--                                                            <div class="col-sm-6 ">-->
-<!--                                                                <input type="text" class="form-control"-->
-<!--                                                                       placeholder="Имя"-->
-<!--                                                                       id="lastName"-->
-<!--                                                                       name="lastName"-->
-<!--                                                                       th:value="${u.lastName}"-->
-<!--                                                                />-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <label for="password"-->
-<!--                                                                   class="col-sm-3 col-form-label">Пароль</label>-->
-<!--                                                            <div class="col-sm-6">-->
-<!--                                                                <input type="text" class="form-control"-->
-<!--                                                                       placeholder="Пароль"-->
-<!--                                                                       id="password"-->
-<!--                                                                       name="password"-->
-<!--                                                                       th:value="${u.password}"-->
-<!--                                                                />-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <label for="birthDate" class="col-sm-3 col-form-label">Дата-->
-<!--                                                                рождения</label>-->
-<!--                                                            <div class="col-sm-6">-->
-<!--                                                                <input type="text" class="form-control"-->
-<!--                                                                       placeholder="Дата рождения"-->
-<!--                                                                       id="birthDate"-->
-<!--                                                                       name="birthDate"-->
-<!--                                                                       th:value="${u.birthDate}"-->
-<!--                                                                />-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <label for="telNumber" class="col-sm-3 col-form-label">Телефон</label>-->
-<!--                                                            <div class="col-sm-6">-->
-<!--                                                                <input type="number" class="form-control"-->
-<!--                                                                       placeholder="Телефон"-->
-<!--                                                                       id="telNumber"-->
-<!--                                                                       name="telNumber"-->
-<!--                                                                       th:value="${u.telNumber}"-->
-<!--                                                                />-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                        <div class="form-group row">-->
-<!--                                                            <div class="col-sm-3">Роли</div>-->
-<!--                                                            <div class="col-sm-6">-->
-<!--                                                                <div class="form-check" th:each="role: ${roleList}">-->
-<!--                                                                    <input class="form-check-input" id="rL" name="rL"-->
-<!--                                                                           type="checkbox" th:value="${role.id}"-->
-<!--                                                                           th:checked="${#lists.contains(u.getRoles(), role)} ? 'checked'"/>-->
-<!--                                                                    <label class="form-check-label"-->
-<!--                                                                           th:text="${role.name}"></label>-->
-<!--                                                                </div>-->
-<!--                                                            </div>-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                    <div class="modal-footer">-->
-<!--                                                        <button type="button" class="btn btn-secondary"-->
-<!--                                                                data-dismiss="modal">Отмена-->
-<!--                                                        </button>-->
-<!--                                                        <button type="submit" class="btn btn-success">Сохранить</button>-->
-<!--                                                    </div>-->
-<!--                                                </form>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+                <!--                                                    <div class="modal-body">-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <label for="id" class="col-sm-3 col-form-label">id</label>-->
+                <!--                                                            <div class="col-sm-6">-->
+                <!--                                                                <input type="text" class="form-control"-->
+                <!--                                                                       placeholder="id"-->
+                <!--                                                                       id="id"-->
+                <!--                                                                       name="id"-->
+                <!--                                                                       th:value="${u.id}"-->
+                <!--                                                                       readonly/>-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <label for="firstName" class="col-sm-3 col-form-label">Фамилия</label>-->
+                <!--                                                            <div class="col-sm-6">-->
+                <!--                                                                <input type="text" class="form-control"-->
+                <!--                                                                       placeholder="Фамилия"-->
+                <!--                                                                       id="firstName"-->
+                <!--                                                                       name="firstName"-->
+                <!--                                                                       th:value="${u.firstName}"-->
+                <!--                                                                />-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <label for="lastName"-->
+                <!--                                                                   class="col-sm-3 col-form-label">Имя</label>-->
+                <!--                                                            <div class="col-sm-6 ">-->
+                <!--                                                                <input type="text" class="form-control"-->
+                <!--                                                                       placeholder="Имя"-->
+                <!--                                                                       id="lastName"-->
+                <!--                                                                       name="lastName"-->
+                <!--                                                                       th:value="${u.lastName}"-->
+                <!--                                                                />-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <label for="password"-->
+                <!--                                                                   class="col-sm-3 col-form-label">Пароль</label>-->
+                <!--                                                            <div class="col-sm-6">-->
+                <!--                                                                <input type="text" class="form-control"-->
+                <!--                                                                       placeholder="Пароль"-->
+                <!--                                                                       id="password"-->
+                <!--                                                                       name="password"-->
+                <!--                                                                       th:value="${u.password}"-->
+                <!--                                                                />-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <label for="birthDate" class="col-sm-3 col-form-label">Дата-->
+                <!--                                                                рождения</label>-->
+                <!--                                                            <div class="col-sm-6">-->
+                <!--                                                                <input type="text" class="form-control"-->
+                <!--                                                                       placeholder="Дата рождения"-->
+                <!--                                                                       id="birthDate"-->
+                <!--                                                                       name="birthDate"-->
+                <!--                                                                       th:value="${u.birthDate}"-->
+                <!--                                                                />-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <label for="telNumber" class="col-sm-3 col-form-label">Телефон</label>-->
+                <!--                                                            <div class="col-sm-6">-->
+                <!--                                                                <input type="number" class="form-control"-->
+                <!--                                                                       placeholder="Телефон"-->
+                <!--                                                                       id="telNumber"-->
+                <!--                                                                       name="telNumber"-->
+                <!--                                                                       th:value="${u.telNumber}"-->
+                <!--                                                                />-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                        <div class="form-group row">-->
+                <!--                                                            <div class="col-sm-3">Роли</div>-->
+                <!--                                                            <div class="col-sm-6">-->
+                <!--                                                                <div class="form-check" th:each="role: ${roleList}">-->
+                <!--                                                                    <input class="form-check-input" id="rL" name="rL"-->
+                <!--                                                                           type="checkbox" th:value="${role.id}"-->
+                <!--                                                                           th:checked="${#lists.contains(u.getRoles(), role)} ? 'checked'"/>-->
+                <!--                                                                    <label class="form-check-label"-->
+                <!--                                                                           th:text="${role.name}"></label>-->
+                <!--                                                                </div>-->
+                <!--                                                            </div>-->
+                <!--                                                        </div>-->
+                <!--                                                    </div>-->
+                <!--                                                    <div class="modal-footer">-->
+                <!--                                                        <button type="button" class="btn btn-secondary"-->
+                <!--                                                                data-dismiss="modal">Отмена-->
+                <!--                                                        </button>-->
+                <!--                                                        <button type="submit" class="btn btn-success">Сохранить</button>-->
+                <!--                                                    </div>-->
+                <!--                                                </form>-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
 
-<!--                                </td>-->
-<!--                                <td>-->
-<!--                                    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
-<!--                                    <button type="button" class="btn btn-danger" data-toggle="modal"-->
-<!--                                            th:data-target="${'#delete_' + u.id}">-->
-<!--                                        Delete-->
-<!--                                    </button>-->
+                <!--                                </td>-->
+                <!--                                <td>-->
+                <!--                                    &lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                <!--                                    <button type="button" class="btn btn-danger" data-toggle="modal"-->
+                <!--                                            th:data-target="${'#delete_' + u.id}">-->
+                <!--                                        Delete-->
+                <!--                                    </button>-->
 
-<!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
-<!--                                    <div class="modal fade" th:id="${'delete_' + u.id}" tabindex="-1" role="dialog"-->
-<!--                                         aria-labelledby="deleteModalCenterTitle" aria-hidden="true">-->
-<!--                                        <div class="modal-dialog modal-dialog-centered" role="document">-->
-<!--                                            <div class="modal-content">-->
-<!--                                                <div class="modal-header">-->
-<!--                                                    <h5 class="modal-title" id="deleteModalLongTitle">Удаление-->
-<!--                                                        пользователя</h5>-->
-<!--                                                    <button type="button" class="close" data-dismiss="modal"-->
-<!--                                                            aria-label="Close">-->
-<!--                                                        <span aria-hidden="true">&times;</span>-->
-<!--                                                    </button>-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-body">-->
-<!--                                                    <table class="table">-->
-<!--                                                        <tr>-->
-<!--                                                            <th>ID</th>-->
-<!--                                                            <td th:text="${u.id}"></td>-->
-<!--                                                        </tr>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>Фамилия</th>-->
-<!--                                                            <td th:text="${u.firstName}"></td>-->
-<!--                                                        </tr>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>Имя</th>-->
-<!--                                                            <td th:text="${u.lastName}"></td>-->
-<!--                                                        </tr>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>Дата рождения</th>-->
-<!--                                                            <td th:text="${u.birthDate}"></td>-->
-<!--                                                        </tr>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>Телефон</th>-->
-<!--                                                            <td th:text="${u.telNumber}"></td>-->
-<!--                                                        </tr>-->
-<!--                                                        <tr>-->
-<!--                                                            <th>Роли доступа</th>-->
-<!--                                                            <td>-->
-<!--                                                                <th:block th:each="role : ${u.roles}">-->
-<!--                                                                    <span th:text="${role.name}"></span><br/>-->
-<!--                                                                </th:block>-->
-<!--                                                            </td>-->
-<!--                                                        </tr>-->
-<!--                                                    </table>-->
-<!--                                                </div>-->
-<!--                                                <div class="modal-footer">-->
-<!--                                                    <button type="button" class="btn btn-secondary"-->
-<!--                                                            data-dismiss="modal">Отмена-->
-<!--                                                    </button>-->
-<!--                                                    <a th:href="@{'/delete/'+${u.id}}" class="btn btn-danger"-->
-<!--                                                       role="button"> Delete </a>-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </th:block>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
+                <!--                                    &lt;!&ndash; Modal &ndash;&gt;-->
+                <!--                                    <div class="modal fade" th:id="${'delete_' + u.id}" tabindex="-1" role="dialog"-->
+                <!--                                         aria-labelledby="deleteModalCenterTitle" aria-hidden="true">-->
+                <!--                                        <div class="modal-dialog modal-dialog-centered" role="document">-->
+                <!--                                            <div class="modal-content">-->
+                <!--                                                <div class="modal-header">-->
+                <!--                                                    <h5 class="modal-title" id="deleteModalLongTitle">Удаление-->
+                <!--                                                        пользователя</h5>-->
+                <!--                                                    <button type="button" class="close" data-dismiss="modal"-->
+                <!--                                                            aria-label="Close">-->
+                <!--                                                        <span aria-hidden="true">&times;</span>-->
+                <!--                                                    </button>-->
+                <!--                                                </div>-->
+                <!--                                                <div class="modal-body">-->
+                <!--                                                    <table class="table">-->
+                <!--                                                        <tr>-->
+                <!--                                                            <th>ID</th>-->
+                <!--                                                            <td th:text="${u.id}"></td>-->
+                <!--                                                        </tr>-->
+                <!--                                                        <tr>-->
+                <!--                                                            <th>Фамилия</th>-->
+                <!--                                                            <td th:text="${u.firstName}"></td>-->
+                <!--                                                        </tr>-->
+                <!--                                                        <tr>-->
+                <!--                                                            <th>Имя</th>-->
+                <!--                                                            <td th:text="${u.lastName}"></td>-->
+                <!--                                                        </tr>-->
+                <!--                                                        <tr>-->
+                <!--                                                            <th>Дата рождения</th>-->
+                <!--                                                            <td th:text="${u.birthDate}"></td>-->
+                <!--                                                        </tr>-->
+                <!--                                                        <tr>-->
+                <!--                                                            <th>Телефон</th>-->
+                <!--                                                            <td th:text="${u.telNumber}"></td>-->
+                <!--                                                        </tr>-->
+                <!--                                                        <tr>-->
+                <!--                                                            <th>Роли доступа</th>-->
+                <!--                                                            <td>-->
+                <!--                                                                <th:block th:each="role : ${u.roles}">-->
+                <!--                                                                    <span th:text="${role.name}"></span><br/>-->
+                <!--                                                                </th:block>-->
+                <!--                                                            </td>-->
+                <!--                                                        </tr>-->
+                <!--                                                    </table>-->
+                <!--                                                </div>-->
+                <!--                                                <div class="modal-footer">-->
+                <!--                                                    <button type="button" class="btn btn-secondary"-->
+                <!--                                                            data-dismiss="modal">Отмена-->
+                <!--                                                    </button>-->
+                <!--                                                    <a th:href="@{'/delete/'+${u.id}}" class="btn btn-danger"-->
+                <!--                                                       role="button"> Delete </a>-->
+                <!--                                                </div>-->
+                <!--                                            </div>-->
+                <!--                                        </div>-->
+                <!--                                    </div>-->
+                <!--                                </td>-->
+                <!--                            </tr>-->
+                <!--                        </th:block>-->
+                <!--                        </tbody>-->
+                <!--                    </table>-->
+                <!--                </div>-->
 
             </div>
             <div class="tab-pane fade col-sm-8 mx-auto" id="nav-profile" role="tabpanel"
                  aria-labelledby="nav-profile-tab">
                 <h2> Новый пользователь</h2>
 
-                <form action="#" th:action="@{/admin/adduser}" th:object="${user}" method="post">
-                    <!--                    <div th:if="${user.id != null}" class="form-group row">-->
-                    <!--                        <label for="id" class="col-sm-3 col-form-label">id</label>-->
-                    <!--                        <div class="col-sm-6">-->
-                    <!--                            <input type="text" class="form-control" id="id" placeholder="id" th:field="*{id}" readonly/>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
+                <form id="newUserForm">
                     <div class="form-group row">
-                        <label for="firstName" class="col-sm-3 col-form-label">Фамилия</label>
+                        <label for="newUserfirstName" class="col-sm-3 col-form-label">Фамилия</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="firstName" placeholder="Фамилия"
-                                   th:field="*{firstName}"/>
+                            <input type="text" class="form-control" id="newUserfirstName" placeholder="Фамилия"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="lastName" class="col-sm-3 col-form-label">Имя</label>
+                        <label for="newUserlastName" class="col-sm-3 col-form-label">Имя</label>
                         <div class="col-sm-6 ">
-                            <input type="text" class="form-control" id="lastName" placeholder="Имя"
-                                   th:field="*{lastName}"/>
+                            <input type="text" class="form-control" id="newUserlastName" placeholder="Имя"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password" class="col-sm-3 col-form-label">Пароль</label>
+                        <label for="newUserpassword" class="col-sm-3 col-form-label">Пароль</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="password" placeholder="Пароль"
-                                   th:field="*{password}"/>
+                            <input type="text" class="form-control" id="newUserpassword" placeholder="Пароль"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="birthDate" class="col-sm-3 col-form-label">Дата рождения</label>
+                        <label for="newUserbirthDate" class="col-sm-3 col-form-label">Дата рождения</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="birthDate" placeholder="Дата рождения"
-                                   th:field="*{birthDate}"/>
+                            <input type="text" class="form-control" id="newUserbirthDate" placeholder="Дата рождения"/>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="telNumber" class="col-sm-3 col-form-label">Телефон</label>
+                        <label for="newUsertelNumber" class="col-sm-3 col-form-label">Телефон</label>
                         <div class="col-sm-6">
-                            <input type="number" class="form-control" id="telNumber" placeholder="Телефон"
-                                   th:field="*{telNumber}"/>
+                            <input type="number" class="form-control" id="newUsertelNumber" placeholder="Телефон"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-3">Роли</div>
                         <div class="col-sm-6">
-                            <div class="form-check" th:each="role: ${roleList}">
-                                <input class="form-check-input" id="rL" name="rL" type="checkbox" th:value="${role.id}"
-                                       th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>
-                                <label class="form-check-label" th:text="${role.name}"></label>
+                            <div class="form-check" id="divNewUserRole">
+                                <!--                                <input class="form-check-input" id="rL" name="rL" type="checkbox"/>-->
+                                <!--                                <label class="form-check-label" th:text="${role.name}"></label>-->
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-primary">Добавить пользователя</button>
-                        </div>
-                    </div>
+                    <input type="button" value="Добавить пользователя" id="btnAddUser" class="btn btn-success">
+                    <input type="button" value="Очистить форму" onclick="resetUser()" class="btn btn-secondary">
                 </form>
+
+                <!--                <form action="#" th:action="@{/admin/adduser}" th:object="${user}" method="post">-->
+                <!--                    &lt;!&ndash;                    <div th:if="${user.id != null}" class="form-group row">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                        <label for="id" class="col-sm-3 col-form-label">id</label>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                        <div class="col-sm-6">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                            <input type="text" class="form-control" id="id" placeholder="id" th:field="*{id}" readonly/>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                        </div>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <label for="firstName" class="col-sm-3 col-form-label">Фамилия</label>-->
+                <!--                        <div class="col-sm-6">-->
+                <!--                            <input type="text" class="form-control" id="firstName" placeholder="Фамилия"-->
+                <!--                                   th:field="*{firstName}"/>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <label for="lastName" class="col-sm-3 col-form-label">Имя</label>-->
+                <!--                        <div class="col-sm-6 ">-->
+                <!--                            <input type="text" class="form-control" id="lastName" placeholder="Имя"-->
+                <!--                                   th:field="*{lastName}"/>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <label for="password" class="col-sm-3 col-form-label">Пароль</label>-->
+                <!--                        <div class="col-sm-6">-->
+                <!--                            <input type="text" class="form-control" id="password" placeholder="Пароль"-->
+                <!--                                   th:field="*{password}"/>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <label for="birthDate" class="col-sm-3 col-form-label">Дата рождения</label>-->
+                <!--                        <div class="col-sm-6">-->
+                <!--                            <input type="text" class="form-control" id="birthDate" placeholder="Дата рождения"-->
+                <!--                                   th:field="*{birthDate}"/>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <label for="telNumber" class="col-sm-3 col-form-label">Телефон</label>-->
+                <!--                        <div class="col-sm-6">-->
+                <!--                            <input type="number" class="form-control" id="telNumber" placeholder="Телефон"-->
+                <!--                                   th:field="*{telNumber}"/>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <div class="col-sm-3">Роли</div>-->
+                <!--                        <div class="col-sm-6">-->
+                <!--                            <div class="form-check" th:each="role: ${roleList}">-->
+                <!--                                <input class="form-check-input" id="rL" name="rL" type="checkbox" th:value="${role.id}"-->
+                <!--                                       th:checked="${#lists.contains(userRole, role.id)} ? 'checked'"/>-->
+                <!--                                <label class="form-check-label" th:text="${role.name}"></label>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="form-group row">-->
+                <!--                        <div class="col-sm-6">-->
+                <!--                            <button type="submit" class="btn btn-primary">Добавить пользователя</button>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </form>-->
             </div>
 
             <div class="tab-pane fade col-sm-8 mx-auto" id="nav-contact" role="tabpanel"
                  aria-labelledby="nav-contact-tab">
                 <h2>Список доступных ролей</h2>
-                <table id="tblRole"  class="table">
+                <table id="tblRole" class="table">
                     <thead>
                     <tr>
                         <th>id</th>
@@ -341,36 +385,36 @@
                     </tbody>
                 </table>
 
-<!--                <div th:unless="${#lists.isEmpty(roleList)}">-->
-<!--                    <table class="table">-->
-<!--                        <thead>-->
-<!--                        <tr>-->
-<!--                            <th>Id</th>-->
-<!--                            <th>Роль</th>-->
-<!--                            <th>Delete</th>-->
-<!--                        </tr>-->
-<!--                        </thead>-->
-<!--                        <tbody>-->
-<!--                        <th:block th:each="role : ${roleList}">-->
-<!--                            <tr>-->
-<!--                                <td th:text="${role.id}"></td>-->
-<!--                                <td th:text="${role.name}"></td>-->
-<!--                                <td><a th:href="@{'/admin/deleterole/'+${role.id}}"> Delete </a></td>-->
-<!--                            </tr>-->
-<!--                        </th:block>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-<!--                </div>-->
+                <!--                <div th:unless="${#lists.isEmpty(roleList)}">-->
+                <!--                    <table class="table">-->
+                <!--                        <thead>-->
+                <!--                        <tr>-->
+                <!--                            <th>Id</th>-->
+                <!--                            <th>Роль</th>-->
+                <!--                            <th>Delete</th>-->
+                <!--                        </tr>-->
+                <!--                        </thead>-->
+                <!--                        <tbody>-->
+                <!--                        <th:block th:each="role : ${roleList}">-->
+                <!--                            <tr>-->
+                <!--                                <td th:text="${role.id}"></td>-->
+                <!--                                <td th:text="${role.name}"></td>-->
+                <!--                                <td><a th:href="@{'/admin/deleterole/'+${role.id}}"> Delete </a></td>-->
+                <!--                            </tr>-->
+                <!--                        </th:block>-->
+                <!--                        </tbody>-->
+                <!--                    </table>-->
+                <!--                </div>-->
 
                 <h3>Добавление ролей</h3>
-<!--                <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post" class="form-inline">-->
-<!--                    <label for="name" class="col-sm-2 col-form-label">Роль</label>-->
-<!--                    <div class="col-auto">-->
-<!--                        <input type="text" class="form-control" id="roleName" placeholder="Название роли"-->
-<!--                               th:field="*{name}"/>-->
-<!--                    </div>-->
-<!--                    <button type="submit" class="btn btn-primary">Добавить роль</button>-->
-<!--                </form>-->
+                <!--                <form action="#" th:action="@{/admin/addrole}" th:object="${role}" method="post" class="form-inline">-->
+                <!--                    <label for="name" class="col-sm-2 col-form-label">Роль</label>-->
+                <!--                    <div class="col-auto">-->
+                <!--                        <input type="text" class="form-control" id="roleName" placeholder="Название роли"-->
+                <!--                               th:field="*{name}"/>-->
+                <!--                    </div>-->
+                <!--                    <button type="submit" class="btn btn-primary">Добавить роль</button>-->
+                <!--                </form>-->
                 <form class="form-inline">
                     <label for="roleName" class="col-sm-2 col-form-label">Роль</label>
                     <div class="col-auto">
@@ -378,14 +422,14 @@
                     </div>
                     <input type="button" value="Добавить роль" id="btnAddRole" class="btn btn-success">
                 </form>
-<!--                <table class="table">-->
-<!--                    &lt;!&ndash;                    <td><input type="text" id = "roleId" hidden></td>&ndash;&gt;-->
-<!--                    <tr>-->
-<!--                        <td>Роль</td>-->
-<!--                        <td><input type="text" id="roleName"></td>-->
-<!--                        <td><input type="button" value="Добавить роль" id="btnAddRole"></td>-->
-<!--                    </tr>-->
-<!--                </table>-->
+                <!--                <table class="table">-->
+                <!--                    &lt;!&ndash;                    <td><input type="text" id = "roleId" hidden></td>&ndash;&gt;-->
+                <!--                    <tr>-->
+                <!--                        <td>Роль</td>-->
+                <!--                        <td><input type="text" id="roleName"></td>-->
+                <!--                        <td><input type="button" value="Добавить роль" id="btnAddRole"></td>-->
+                <!--                    </tr>-->
+                <!--                </table>-->
             </div>
         </div>
     </main>
