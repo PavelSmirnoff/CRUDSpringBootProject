@@ -33,6 +33,12 @@ public class AdminRestController {
         return new ResponseEntity<>(this.userService.getUsers(), HttpStatus.OK);
     }
 
+    @GetMapping("/deluser/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        this.userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/allrole")
     public ResponseEntity<List<Role>> getRoles() {
         return new ResponseEntity<>(this.roleService.getRoles(), HttpStatus.OK);
