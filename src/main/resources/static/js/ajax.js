@@ -31,8 +31,14 @@ $(document).ready(function () {
             contentType: 'application/json; charset=utf-8',
             success: function () {
                 // alert('Пользователь добавлен');
-                getAllUser();
-                // resetUser();
+                if (id === '') {
+                    getAllUser();
+                } else {
+                   // let tableBody = $('#tblUser tbody');
+                    $('#line'+id ).replaceWith( addRow(user) );
+
+                }
+                resetUser();
             },
             error: function (error) {
                 alert(error);
@@ -46,38 +52,42 @@ $(document).ready(function () {
         $('#myModalUserForm').modal('hide');
     });
 
-    $('#btnAddUser').click(function () {
-        let user = {};
-        let role = [];
-        user.firstName = $('#newUserfirstName').val();
-        user.lastName = $('#newUserlastName').val();
-        user.password = $('#newUserpassword').val();
-        user.birthDate = $('#newUserbirthDate').val();
-        user.telNumber = $('#newUsertelNumber').val();
-
-        let eventTypes = document.forms['newUserForm'].elements['rL[]'];
-
-        for (let i = 0, len = eventTypes.length; i < len; i++) {
-            if (eventTypes[i].checked) {
-                role.push($(eventTypes[i]).val());
-            }
-        }
-
-        $.ajax({
-            url: "admin/add_user",
-            method: "POST",
-            data: JSON.stringify({user, role}),
-            contentType: 'application/json; charset=utf-8',
-            success: function () {
-                alert('Пользователь добавлен');
-                getAllUser();
-                resetUser();
-            },
-            error: function (error) {
-                alert(error);
-            }
-        })
-    })
+    // $('#btnAddUser').click(function () {
+    //     let user = {};
+    //     let role = [];
+    //     user.firstName = $('#newUserfirstName').val();
+    //     user.lastName = $('#newUserlastName').val();
+    //     user.password = $('#newUserpassword').val();
+    //     user.birthDate = $('#newUserbirthDate').val();
+    //     user.telNumber = $('#newUsertelNumber').val();
+    //
+    //     let eventTypes = document.forms['newUserForm'].elements['rL[]'];
+    //
+    //     for (let i = 0, len = eventTypes.length; i < len; i++) {
+    //         if (eventTypes[i].checked) {
+    //             role.push($(eventTypes[i]).val());
+    //         }
+    //     }
+    //
+    //     $.ajax({
+    //         url: "admin/add_user",
+    //         method: "POST",
+    //         data: JSON.stringify({user, role}),
+    //         contentType: 'application/json; charset=utf-8',
+    //         success: function () {
+    //             alert('Пользователь добавлен');
+    //             //getAllUser();
+    //
+    //             var tableBody = $('#tblUser tbody');
+    //             tableBody.append(addRow(user));
+    //
+    //             resetUser();
+    //         },
+    //         error: function (error) {
+    //             alert(error);
+    //         }
+    //     })
+    // })
 
     $('#btnAddRole').click(function () {
         var role = {};
@@ -110,20 +120,20 @@ function showModalUserForm(action, id) {
     //alert(action + ' ' + id);
     if (action === 'ADD') {
         //alert(action + ' ' + id);
-        $('#modal-header').css("background-color","green");
+        $('#modal-header').css("background-color", "green");
         $('#btnSaveUser').show();
         $('#btnAddUserResetForm').show();
         $('#editModalLongTitle').text("Добавить пользователя");
     }
     if (action === 'EDIT') {
         //alert(action + ' ' + id);
-        $('#modal-header').css("background-color","blue");
+        $('#modal-header').css("background-color", "blue");
         $('#btnSaveUser').show();
         $('#editModalLongTitle').text("Редактирование пользователя");
         getUserById(id);
     }
     if (action === 'DEL') {
-        $('#modal-header').css("background-color","red");
+        $('#modal-header').css("background-color", "red");
         //alert(action + ' ' + id);
         $('#btnDeleteUser').show();
         // $('#userFormFirstName').prop( "disabled", false );
@@ -150,30 +160,34 @@ function getAllUser() {
             tableBody.empty();
 
             $(data).each(function (index, user) {
-                var role = '';
-                $(user.roles).each(function (index, r) {
-                    role = role + r.name + '<br/>';
-                });
 
-                tableBody.append('<tr>' +
-                    '<td>' + user.id + '</td>' +
-                    '<td>' + user.firstName + '</td>' +
-                    '<td>' + user.lastName + '</td>' +
-                    '<td>' + user.firstName + '</td>' +
-                    '<td>' + role + '</td>' +
-                    '<td>' + user.birthDate + '</td>' +
-                    '<td>' + user.telNumber + '</td>' +
-                    '<td><input type="button" value="Изменить" onclick="showModalUserForm(\'EDIT\',' + user.id + ')"\n' +
-                    '                       class="btn btn-info"></td>' +
-                    '<td><input type="button" value="Удалить" onclick="showModalUserForm(\'DEL\',' + user.id + ')"\n' +
-                    '                       class="btn btn-danger"></td>' +
-                    '</tr>');
+                tableBody.append(addRow(user));
             })
         },
         error: function (error) {
             alert(error);
         }
     })
+}
+
+function addRow(user) {
+    var role = '';
+    $(user.roles).each(function (index, r) {
+        role = role + r.name + '<br/>';
+    });
+    return '<tr id="line' + user.id + '">' +
+        '<td>' + user.id + '</td>' +
+        '<td>' + user.firstName + '</td>' +
+        '<td>' + user.lastName + '</td>' +
+        '<td>' + user.password + '</td>' +
+        '<td>' + role + '</td>' +
+        '<td>' + user.birthDate + '</td>' +
+        '<td>' + user.telNumber + '</td>' +
+        '<td><input type="button" value="Изменить" onclick="showModalUserForm(\'EDIT\',' + user.id + ')"\n' +
+        '                       class="btn btn-info"></td>' +
+        '<td><input type="button" value="Удалить" onclick="showModalUserForm(\'DEL\',' + user.id + ')"\n' +
+        '                       class="btn btn-danger"></td>' +
+        '</tr>';
 }
 
 function getUserById(id) {
@@ -200,12 +214,10 @@ function getUserById(id) {
                 });
 
 
-
-                for (let i = 0, len = eventTypes.length; i < len; i++)
-                {
+                for (let i = 0, len = eventTypes.length; i < len; i++) {
                     let uR = parseInt(eventTypes[i].value);
                     //alert(roleUser + ' ' + uR + ' ' + roleUser.includes(uR));
-                    if(roleUser.includes(uR)){
+                    if (roleUser.includes(uR)) {
                         eventTypes[i].checked = true;
                     }
                     //alert(eventTypes[i].value);
@@ -258,7 +270,8 @@ function deleteUser(id) {
             method: 'GET',
             success: function () {
                 //alert('record has been deleted');
-                getAllUser();
+                //getAllUser();
+                $('#line' + id).remove();
             },
             error: function (error) {
                 alert(error);
