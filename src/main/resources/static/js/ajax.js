@@ -3,10 +3,12 @@ $(document).ready(function () {
     getAllRole();
     getAllUser();
 
-    $('#btnAddNewUser').click(function () {
+    $('#btnSaveUser').click(function () {
         let user = {};
         let role = [];
+        let id = $('#userFormId').val();
 
+        if(id !== '')user.id = id;
         user.firstName = $('#userFormFirstName').val();
         user.lastName = $('#userFormLastName').val();
         user.password = $('#userFormPassword').val();
@@ -37,6 +39,12 @@ $(document).ready(function () {
             }
         })
     })
+
+    $('#btnDeleteUser').click(function () {
+        let id = $('#userFormId').val();
+        deleteUser(id);
+        $('#myModalUserForm').modal('hide');
+    });
 
     $('#btnAddUser').click(function () {
         let user = {};
@@ -103,7 +111,7 @@ function showModalUserForm(action, id){
     //alert(action + ' ' + id);
     if(action==='ADD'){
         //alert(action + ' ' + id);
-        $('#btnAddNewUser').show();
+        $('#btnSaveUser').show();
         $('#btnAddUserResetForm').show();
         $('#editModalLongTitle').text("Добавить пользователя");
     }
@@ -111,12 +119,15 @@ function showModalUserForm(action, id){
         //alert(action + ' ' + id);
         $('#btnSaveUser').show();
         $('#editModalLongTitle').text("Редактирование пользователя");
+        getUserById(id);
     }
     if(action==='DEL'){
         //alert(action + ' ' + id);
         $('#btnDeleteUser').show();
         $('#editModalLongTitle').text("Удалить пользователя");
+        getUserById(id);
     }
+
     $('#myModalUserForm').modal('show');
 }
 
@@ -156,6 +167,47 @@ function getAllUser() {
     })
 }
 
+function getUserById(id) {
+    $.ajax({
+        url: "admin/getuser/" + id,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            //alert(data.user);
+            $(data).each(function (index, user) {
+                //alert(user.id);
+                $('#userFormId').val(user.id);
+                $('#userFormFirstName').val(user.firstName);
+                $('#userFormLastName').val(user.lastName);
+                $('#userFormPassword').val(user.password);
+                $('#userFormBirthDate').val(user.birthDate);
+                $('#userFormTelNumber').val(user.telNumber);
+                // var role = '';
+                // $(user.roles).each(function (index, r) {
+                //     role = role + r.name + '<br/>';
+                // });
+                //
+                // tableBody.append('<tr>' +
+                //     '<td>' + user.id + '</td>' +
+                //     '<td>' + user.firstName + '</td>' +
+                //     '<td>' + user.lastName + '</td>' +
+                //     '<td>' + user.firstName + '</td>' +
+                //     '<td>' + role + '</td>' +
+                //     '<td>' + user.birthDate + '</td>' +
+                //     '<td>' + user.telNumber + '</td>' +
+                //     '<td><input type="button" value="Изменить" onclick="showModalUserForm(\'EDIT\','+ user.id + ')"\n' +
+                //     '                       class="btn btn-info"></td>' +
+                //     '<td><input type="button" value="Удалить" onclick="showModalUserForm(\'DEL\','+ user.id + ')"\n' +
+                //     '                       class="btn btn-danger"></td>' +
+                //     '</tr>');
+            })
+        },
+        error: function (error) {
+            alert(error);
+        }
+    })
+}
+
 function getAllRole() {
     //alert("getAllRole");
     $.ajax({
@@ -186,7 +238,7 @@ function getAllRole() {
 }
 
 function deleteUser(id) {
-    //if (confirm('Подтверждение на  роли id=' + id + '. \nУдалить?')) {
+    if (confirm('Подтверждение на удаление пользоваиеля с id=' + id + '. \nУдалить?')) {
     $.ajax({
         url: 'admin/deluser/' + id,
         method: 'GET',
@@ -198,7 +250,7 @@ function deleteUser(id) {
             alert(error);
         }
     })
-    //}
+    }
 }
 
 function deleteRole(id) {
@@ -249,7 +301,7 @@ function resetUserForm() {
 
 function resetUserFormButton() {
     $('#btnSaveUser').hide();
-    $('#btnAddUserResetForm').hide();
+    //$('#btnAddUserResetForm').hide();
     $('#btnAddNewUser').hide();
     $('#btnDeleteUser').hide();
 }
