@@ -1,6 +1,5 @@
 package dev.smirnoff.crudprojectspringboot.controller;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import dev.smirnoff.crudprojectspringboot.model.Role;
 import dev.smirnoff.crudprojectspringboot.model.User;
 import dev.smirnoff.crudprojectspringboot.model.UserContext;
@@ -57,6 +56,10 @@ public class AdminRestController {
         }
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/getuser/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(this.userService.getUserById(id), HttpStatus.OK);
     }
 
     @GetMapping("/deluser/{id}")
