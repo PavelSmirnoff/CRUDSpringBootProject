@@ -37,14 +37,14 @@ public class AdminRestController {
     }
 
     @PostMapping("/add_user")
-    public ResponseEntity<Void> addUser(@RequestBody UserContext userContext) {
+    public ResponseEntity<User> addUser(@RequestBody UserContext userContext) {
         Set<Role> roleList = new LinkedHashSet<>();
         String[] roles = userContext.getRole();
         User user = userContext.getUser();
 
         // Надо написать обработку пустого списка ролей, иначе будет исключение
 
-        for(int i=0; i < roles.length ; i++){
+        for (int i = 0; i < roles.length; i++) {
             roleList.add(this.roleService.getRoleById(Long.parseLong(roles[i])));
         }
 
@@ -55,8 +55,9 @@ public class AdminRestController {
             this.userService.updateUser(user);
         }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
     @GetMapping("/getuser/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         return new ResponseEntity<>(this.userService.getUserById(id), HttpStatus.OK);
@@ -72,6 +73,7 @@ public class AdminRestController {
     public ResponseEntity<List<Role>> getRoles() {
         return new ResponseEntity<>(this.roleService.getRoles(), HttpStatus.OK);
     }
+
     @GetMapping("/delrole/{id}")
     public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
         this.roleService.deleteRole(id);

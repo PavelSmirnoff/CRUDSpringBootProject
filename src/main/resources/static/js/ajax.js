@@ -29,15 +29,20 @@ $(document).ready(function () {
             method: "POST",
             data: JSON.stringify({user, role}),
             contentType: 'application/json; charset=utf-8',
-            success: function () {
+            success: function (data) {
                 // alert('Пользователь добавлен');
-                if (id === '') {
-                    getAllUser();
-                } else {
-                   // let tableBody = $('#tblUser tbody');
-                    $('#line'+id ).replaceWith( addRow(user) );
+                $(data).each(function (index, newuser) {
+                    //user.id = newuser.id;
 
-                }
+                    if (id === '') {
+                        //getAllUser();
+                        $('#tblUser tbody').append(addRow(newuser));
+                    } else {
+                        // let tableBody = $('#tblUser tbody');
+                        $('#line' + id).replaceWith(addRow(newuser));
+                    }
+
+                });
                 resetUser();
             },
             error: function (error) {
