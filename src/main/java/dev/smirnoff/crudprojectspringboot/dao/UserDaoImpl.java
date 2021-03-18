@@ -2,6 +2,7 @@ package dev.smirnoff.crudprojectspringboot.dao;
 
 import dev.smirnoff.crudprojectspringboot.model.Role;
 import dev.smirnoff.crudprojectspringboot.model.User;
+import lombok.extern.log4j.Log4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * @author pavelsmirnov
  */
+@Log4j
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -31,6 +33,7 @@ public class UserDaoImpl implements UserDao {
             user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         }
         em.persist(user);
+        log.info("Добавлен пользователь");
     }
 
     @Override
@@ -49,6 +52,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updateUser(User user) {
         em.merge(user);
+        log.info("Пользователь изменен");
     }
 
     @Override
